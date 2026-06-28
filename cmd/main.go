@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"dummy-payment-processing/internal/handlers"
+	"dummy-payment-processing/internal/service"
 	"log"
 	"net/http"
 	"os"
@@ -22,6 +24,11 @@ func main() {
 			"message": "Welcome to gin server",
 		})
 	})
+
+	transactionService := service.NewTransactionService()
+	transactionHandler := handlers.NewTransactionHandler(transactionService)
+
+	router.POST("/transaction/create", transactionHandler.CreateTransaction)
 
 	server := &http.Server{
 		Addr:    ":8080",
