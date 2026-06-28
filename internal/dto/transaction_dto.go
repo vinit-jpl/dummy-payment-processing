@@ -14,6 +14,13 @@ type (
 	}
 )
 
+type GetTransactionStatusResponse struct {
+	TransactionID string `json:"transaction_id"`
+	Status        string `json:"status"`
+	Amount        int    `json:"amount"`
+	ReferenceID   string `json:"reference_id"`
+}
+
 type GetAllTransactionsResponse struct {
 	Count        int                 `json:"count"`
 	Transactions []model.Transaction `json:"transactions"`

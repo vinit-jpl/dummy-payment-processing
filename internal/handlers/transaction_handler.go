@@ -29,3 +29,20 @@ func (h *TransactionHandler) CreateTransaction(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 
 }
+
+func (h *TransactionHandler) GetTransactionStatus(c *gin.Context) {
+
+	id := c.Param("id")
+	ctx := c.Request.Context()
+
+	resp, err := h.service.GetTransactionStatus(ctx, id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, resp)
+
+}

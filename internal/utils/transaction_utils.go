@@ -19,7 +19,8 @@ func GenerateTransactionIdString() string {
 func ProcessTransaction(txnID string) string {
 
 	// stimulate delay
-	delay := rand.IntN(4) + 2
+	delay := rand.IntN(15) + 2
+	// delay := 15
 	time.Sleep(time.Duration(delay) * time.Second)
 
 	randInt := rand.IntN(100)

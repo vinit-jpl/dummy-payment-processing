@@ -50,3 +50,22 @@ func (s *transactionService) CreateTransaction(ctx context.Context, req *dto.Cre
 	}, nil
 
 }
+
+func (s *transactionService) GetTransactionStatus(ctx context.Context, txnId string) (*dto.GetTransactionStatusResponse, error) {
+
+	// check if txnID exists or not
+	txn, exists := s.transactions[txnId]
+	if !exists {
+		return &dto.GetTransactionStatusResponse{}, errors.New("transaction id not found")
+	}
+
+	resp := &dto.GetTransactionStatusResponse{
+		TransactionID: txn.TransactionID,
+		Status:        txn.Status,
+		Amount:        txn.Amount,
+		ReferenceID:   txn.ReferenceID,
+	}
+
+	// if present return the response. nil
+	return resp, nil
+}
