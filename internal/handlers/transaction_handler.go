@@ -62,3 +62,13 @@ func (h *TransactionHandler) GetTransactionStats(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 
 }
+
+func (h *TransactionHandler) GetAllTransactions(c *gin.Context) {
+
+	ctx := c.Request.Context()
+
+	resp := h.service.GetAllTransactions(ctx)
+
+	c.JSON(http.StatusOK, resp)
+
+}

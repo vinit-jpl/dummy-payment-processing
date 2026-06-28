@@ -11,6 +11,7 @@ type TransactionService interface {
 	CreateTransaction(ctx context.Context, req *dto.CreateTransactionRequest) (*dto.CreateTransactionResponse, error)
 	GetTransactionStatus(ctx context.Context, txnId string) (*dto.GetTransactionStatusResponse, error)
 	GetTransactionStats(ctx context.Context) (*dto.GetTransactionStatsResponse, error)
+	GetAllTransactions(ctx context.Context) *dto.GetAllTransactionsResponse
 }
 type transactionService struct {
 	transactions map[string]models.Transaction

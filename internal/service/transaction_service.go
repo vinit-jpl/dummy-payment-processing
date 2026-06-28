@@ -98,3 +98,23 @@ func (s *transactionService) GetTransactionStats(ctx context.Context) (*dto.GetT
 
 	return resp, nil
 }
+
+func (s *transactionService) GetAllTransactions(ctx context.Context) *dto.GetAllTransactionsResponse {
+
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	txns := make([]models.Transaction, 0, len(s.transactions))
+
+	for _, txn := range s.transactions {
+		txns = append(txns, txn)
+	}
+
+	resp := &dto.GetAllTransactionsResponse{
+		Count:        len(txns),
+		Transactions: txns,
+	}
+
+	return resp
+
+}
