@@ -30,6 +30,7 @@ func main() {
 
 	router.POST("/transaction/create", transactionHandler.CreateTransaction)
 	router.GET("/transaction/status/:id", transactionHandler.GetTransactionStatus)
+	router.GET("/transaction/stats", transactionHandler.GetTransactionStats)
 
 	server := &http.Server{
 		Addr:    ":8080",

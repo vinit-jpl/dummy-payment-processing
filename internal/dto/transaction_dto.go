@@ -25,3 +25,9 @@ type GetAllTransactionsResponse struct {
 	Count        int                 `json:"count"`
 	Transactions []model.Transaction `json:"transactions"`
 }
+
+type GetTransactionStatsResponse struct {
+	Success    int `json:"success"`
+	Failed     int `json:"failed"`
+	Processing int `json:"processing"`
+}

@@ -53,6 +53,8 @@ func (s *transactionService) CreateTransaction(ctx context.Context, req *dto.Cre
 
 func (s *transactionService) GetTransactionStatus(ctx context.Context, txnId string) (*dto.GetTransactionStatusResponse, error) {
 
+	s.mu.RLock()
+	defer s.mu.RUnlock()
 	// check if txnID exists or not
 	txn, exists := s.transactions[txnId]
 	if !exists {
@@ -67,5 +69,32 @@ func (s *transactionService) GetTransactionStatus(ctx context.Context, txnId str
 	}
 
 	// if present return the response. nil
+	return resp, nil
+}
+
+func (s *transactionService) GetTransactionStats(ctx context.Context) (*dto.GetTransactionStatsResponse, error) {
+
+	// check if any transactions are present
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	size := len(s.transactions)
+
+	resp := &dto.GetTransactionStatsResponse{}
+
+	if size == 0 {
+		return &dto.GetTransactionStatsResponse{}, errors.New("no transactions found")
+	}
+
+	for _, txn := range s.transactions {
+		switch txn.Status {
+		case "success":
+			resp.Success++
+		case "failed":
+			resp.Failed++
+		case "processing":
+			resp.Processing++
+		}
+	}
+
 	return resp, nil
 }
