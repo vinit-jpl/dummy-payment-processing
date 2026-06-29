@@ -18,7 +18,7 @@ type transactionService struct {
 	mu           sync.RWMutex
 }
 
-func NewTransactionService() TransactionService {
+func NewTransactionService() *transactionService {
 	return &transactionService{
 		transactions: make(map[string]models.Transaction),
 	}
